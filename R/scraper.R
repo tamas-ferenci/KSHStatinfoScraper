@@ -39,11 +39,11 @@ KSHStatinfoScrape <- function( code, column, row ) {
 
   form <- rvest::set_values( form[[ 3 ]], loadQueryName = httr::upload_file( queryfile ) )
   res <- rvest::submit_form( session, form, submit = "loadbutton" )
-  if( length( html_nodes( res, "td[class='errorMessage nowrap']" ) )>0 ) {
+  if( length( rvest::html_nodes( res, "td[class='errorMessage nowrap']" ) )>0 ) {
     stop( paste0( "Error: '", trimws( html_text( html_nodes( res, "td[class='errorMessage nowrap']" ) ) ),
                   "' (perhaps some strata are not meaningful here?)." ) )
   }
-  if( trimws( strsplit( html_text( html_nodes( res, "td[id='renderedCells']" ) ), "száma:" )[[1]][2] )=="" ) {
+  if( trimws( strsplit( rvest::html_text( rvest::html_nodes( res, "td[id='renderedCells']" ) ), "száma:" )[[1]][2] )=="" ) {
     stop( "Error: no data returned (perhaps maximum limit of 15000 cells was exceeded?)." )
   }
   res <- rvest::jump_to( res, "http://statinfo.ksh.hu/Statinfo/Print?cube=01&type=0" )
