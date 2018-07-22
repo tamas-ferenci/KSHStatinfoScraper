@@ -21,10 +21,11 @@ GetPopulationPyramidKSH <- function( Type = "Jan1", Years = 2015:2017, Gender = 
                              KSHCodesUsed[[ "GeographicArea" ]][[ GeographicArea ]] ) ) ) )
 
   PopPyramid <- tidyr::fill( PopPyramid, 1:3 )
-  PopPyramid$`Időszak`` <- as.numeric( substring( PopPyramid$`Időszak``, 1, 4 ) )
-  PopPyramid$Nem <- ifelse( PopPyramid$Nem=="Férfi", "Male", ifelse( PopPyramid$Nem=="Nő", "Female", "Total" ) )
-  PopPyramid$Korcsoport <- if( AgeGroup=="Total" ) "Total" else as.numeric( substring( PopPyramid$Korcsoport, 1, 2 ) )
   names( PopPyramid ) <- c( "YEAR", "SEX", "AGE", "GEO", "POPULATION" )
+  PopPyramid$YEAR <- as.numeric( substring( PopPyramid$YEAR, 1, 4 ) )
+  PopPyramid$SEX <- ifelse( PopPyramid$SEX==stringi::stri_unescape_unicode( "F\\u00e9rfi" ), "Male",
+                            ifelse( PopPyramid$SEX==stringi::stri_unescape_unicode( "N\\u0151" ), "Female", "Total" ) )
+  PopPyramid$AGE <- if( AgeGroup=="Total" ) "Total" else as.numeric( substring( PopPyramid$AGE, 1, 2 ) )
 
   PopPyramid
 }
