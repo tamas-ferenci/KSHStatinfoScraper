@@ -28,18 +28,17 @@ KSHStatinfoScrape <- function( code, column, row ) {
   cat( "Language: hu\n", file = queryfile, append = TRUE )
   cat( "CustomItemOrder: 0;;0\n\n", file = queryfile, append = TRUE )
 
-  session <- html_session( paste0( "http://statinfo.ksh.hu/Statinfo/QueryServlet?ha=", code ) )
-  form <- html_form( session )
-  form <- html_form( submit_form( session, form[[ 1 ]], submit = "tab.show.button" ) )
+  session <- rvest::html_session( paste0( "http://statinfo.ksh.hu/Statinfo/QueryServlet?ha=", code ) )
+  form <- rvest::html_form( session )
+  form <- rvest::html_form( rvest::submit_form( session, form[[ 1 ]], submit = "tab.show.button" ) )
 
-  request <- rvest:::submit_request( form[[ 2 ]], "toolbar01.loadButton" )
-  url <- url_absolute( form[[ 2 ]]$url, session$url )
-  res <- POST( url, session$config, handle = session$handle, encode = request$encode,
-               body = list( toolbar01.loadButton.x = 30, toolbar01.loadButton.y = 30 ) )
-  form <- html_form( read_html( res ) )
+  res <- httr::POST( "http://statinfo.ksh.hu/Statinfo/haViewer.jsp", session$config,
+                     handle = session$handle, encode = "form",
+                     body = list( toolbar01.loadButton.x = 30, toolbar01.loadButton.y = 30 ) )
+  form <- rvest::html_form( httr::content( res ) )
 
-  form <- set_values( form[[ 3 ]], loadQueryName = upload_file( queryfile ) )
-  res <- submit_form( session, form, submit = "loadbutton" )
+  form <- rvest::set_values( form[[ 3 ]], loadQueryName = httr::upload_file( queryfile ) )
+  res <- rvest::submit_form( session, form, submit = "loadbutton" )
   if( length( html_nodes( res, "td[class='errorMessage nowrap']" ) )>0 ) {
     stop( paste0( "Error: '", trimws( html_text( html_nodes( res, "td[class='errorMessage nowrap']" ) ) ),
                   "' (perhaps some strata are not meaningful here?)." ) )
@@ -47,11 +46,11 @@ KSHStatinfoScrape <- function( code, column, row ) {
   if( trimws( strsplit( html_text( html_nodes( res, "td[id='renderedCells']" ) ), "száma:" )[[1]][2] )=="" ) {
     stop( "Error: no data returned (perhaps maximum limit of 15000 cells was exceeded?)." )
   }
-  res <- jump_to( res, "http://statinfo.ksh.hu/Statinfo/Print?cube=01&type=0" )
+  res <- rvest::jump_to( res, "http://statinfo.ksh.hu/Statinfo/Print?cube=01&type=0" )
   responsefile <- tempfile( fileext = ".xls" )
   writeBin( res$response$content, responsefile )
 
-  resfile <- readWorksheetFromFile( responsefile, sheet = 1, startRow = 7 )
+  resfile <- data.frame( readxl::read_xls( responsefile, sheet = 1, skip = 6 ) )
 
   unlink( queryfile )
   unlink( responsefile )
