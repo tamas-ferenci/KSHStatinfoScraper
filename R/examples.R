@@ -1,6 +1,22 @@
+#' Scrape the population pyramid of Hungary (2015-2017).
+#'
+#' Scrape the population pyramid of Hungary (2015-2017) possibly stratified according to gender,
+#' age group (main groups or five-year groups) and geographic area (NUTS2, NUTS3 or LAU1).
+#'
+#' @param Type Type of population (possible values are "Jan1" and "MidYear").
+#' @param Years Numeric vector containing the years (from 2015 to 2017, inclusive).
+#' @param Gender Stratification according to gender (possible values are "Total" and "Both").
+#' @param AgeGroup Stratification according to age (possible values are "Total", "Main" and
+#' "FiveYear").
+#' @param GeographicArea Stratification according to geographic area (possible values are "NUTS2",
+#' "NUTS3" and "LAU1").
+#'
+#' @return Neatly formatted population pyramid.
+#' @export
+#'
+#' @examples GetPopulationPyramidKSH( "MidYear", Years = 2015, AgeGroup = "Main" )
 GetPopulationPyramidKSH <- function( Type = "Jan1", Years = 2015:2017, Gender = "Total",
-                                     AgeGroup = "FiveYear", GeographicArea = "NUTS2",
-                                     KSHCodesUsed = KSHCodes ) {
+                                     AgeGroup = "FiveYear", GeographicArea = "NUTS2" ) {
   if ( !Type%in%c( "Jan1", "MidYear" ) )
     stop( "Type must be either 'Jan1' or 'MidYear'!" )
   if ( !Gender%in%c( "Total", "Both" ) )
@@ -16,9 +32,9 @@ GetPopulationPyramidKSH <- function( Type = "Jan1", Years = 2015:2017, Gender = 
     KSHStatinfoScrape( "NT5C01",
                        list( if( Type=="Jan1" ) "[NTAC001]" else "[NTCA003]" ),
                        list( paste0( "[", year, "]" ),
-                             KSHCodesUsed[[ "Gender" ]][[ Gender ]],
-                             KSHCodesUsed[[ "AgeGroup" ]][[ AgeGroup ]],
-                             KSHCodesUsed[[ "GeographicArea" ]][[ GeographicArea ]] ) ) ) )
+                             KSHCodes[[ "Gender" ]][[ Gender ]],
+                             KSHCodes[[ "AgeGroup" ]][[ AgeGroup ]],
+                             KSHCodes[[ "GeographicArea" ]][[ GeographicArea ]] ) ) ) )
 
   PopPyramid <- tidyr::fill( PopPyramid, 1:3 )
   names( PopPyramid ) <- c( "YEAR", "SEX", "AGE", "GEO", "POPULATION" )
