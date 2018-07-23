@@ -1,3 +1,18 @@
+#' Scrape the Statinfo dissemination database.
+#'
+#' Scrape the Statinfo dissemination database of the Hungarian Central Statistics Office.
+#'
+#' @param code The code of the data set (given under the label 'Technical identifier').
+#' @param column A list of vectors, where each vectors is a stratificiation variable for the column,
+#' with the elements of the vector specifying the strata.
+#' @param row A list of vectors, where each vectors is a stratificiation variable for the row, with
+#' the elements of the vector specifying the strata.
+#'
+#' @return The raw file returned by the Statinfo database as a data frame.
+#' @export
+#'
+#' @examples
+#' KSHStatinfoScrape( "NT5C01", "[NTAC001]", list( c( "[2015]", "[2016]" ), c( "[N101_1]", "[N101_2]" ) ) )
 KSHStatinfoScrape <- function( code, column, row ) {
 
   rowcolparser <- function( sel ) {
