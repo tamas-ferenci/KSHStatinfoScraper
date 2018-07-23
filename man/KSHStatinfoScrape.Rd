@@ -22,5 +22,6 @@ The raw file returned by the Statinfo database as a data frame.
 Scrape the Statinfo dissemination database of the Hungarian Central Statistics Office.
 }
 \examples{
-KSHStatinfoScrape( "NT5C01", "[NTAC001]", list( c( "[2015]", "[2016]" ), c( "[N101_1]", "[N101_2]" ) ) )
+KSHStatinfoScrape( "NT5C01", "[NTAC001]", list( c( "[2015]", "[2016]" ),
+c( "[N101_1]", "[N101_2]" ) ) )
 }

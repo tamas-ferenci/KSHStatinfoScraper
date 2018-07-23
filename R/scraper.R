@@ -12,7 +12,8 @@
 #' @export
 #'
 #' @examples
-#' KSHStatinfoScrape( "NT5C01", "[NTAC001]", list( c( "[2015]", "[2016]" ), c( "[N101_1]", "[N101_2]" ) ) )
+#' KSHStatinfoScrape( "NT5C01", "[NTAC001]", list( c( "[2015]", "[2016]" ),
+#' c( "[N101_1]", "[N101_2]" ) ) )
 KSHStatinfoScrape <- function( code, column, row ) {
 
   rowcolparser <- function( sel ) {
