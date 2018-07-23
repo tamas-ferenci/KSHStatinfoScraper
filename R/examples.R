@@ -30,7 +30,7 @@ GetPopulationPyramidKSH <- function( Type = "Jan1", Years = 2015:2017, Gender = 
 
   PopPyramid <- do.call( rbind, lapply( Years, function( year )
     KSHStatinfoScrape( "NT5C01",
-                       list( if( Type=="Jan1" ) "[NTAC001]" else "[NTCA003]" ),
+                       list( if( Type=="Jan1" ) "[NTAC001]" else "[NTAC003]" ),
                        list( paste0( "[", year, "]" ),
                              KSHCodes[[ "Gender" ]][[ Gender ]],
                              KSHCodes[[ "AgeGroup" ]][[ AgeGroup ]],
