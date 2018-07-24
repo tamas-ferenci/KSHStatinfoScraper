@@ -2,10 +2,10 @@
 % Please edit documentation in R/examples.R
 \name{GetPopulationPyramidKSH}
 \alias{GetPopulationPyramidKSH}
-\title{Scrape the population pyramid of Hungary (2015-2017).}
+\title{Scrape the population pyramid of Hungary.}
 \usage{
-GetPopulationPyramidKSH(Type = "Jan1", Years = 2015:2017,
-  Gender = "Total", AgeGroup = "FiveYear", GeographicArea = "NUTS2")
+GetPopulationPyramidKSH(Type = "Jan1", Years = 2013:2016, Gender = "Both",
+  AgeGroup = "Main", GeographicArea = "NUTS2")
 }
 \arguments{
 \item{Type}{Type of population (possible values are "Jan1" and "MidYear").}
@@ -24,8 +24,12 @@ GetPopulationPyramidKSH(Type = "Jan1", Years = 2015:2017,
 Neatly formatted population pyramid.
 }
 \description{
-Scrape the population pyramid of Hungary (2015-2017) possibly stratified according to gender,
-age group (main groups or five-year groups) and geographic area (NUTS2, NUTS3 or LAU1).
+Scrape the population pyramid of Hungary possibly stratified according to gender, age group
+(main groups, five-year groups or one-year groups) and geographic area (NUTS2, NUTS3 or LAU1).
+}
+\details{
+Data available from 1990 to 2017, but LAU1 geographical resoulation is available only after
+2014, and yearly age groups are only available for NUTS2 and NUTS3 resolution.
 }
 \examples{
 GetPopulationPyramidKSH( "MidYear", Years = 2015, AgeGroup = "Main" )
