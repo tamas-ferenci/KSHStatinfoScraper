@@ -17,6 +17,7 @@
 KSHStatinfoScrape <- function( code, column, row ) {
 
   rowcolparser <- function( sel ) {
+    sel <- sel[ !sapply( sel, is.null ) ]
     n <- length( sel )
     if( n==1 ) {
       paste( sapply( sel, function( x ) paste( c( "{", paste( x, collapse = "," ), "}" ),

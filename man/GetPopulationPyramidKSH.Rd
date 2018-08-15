@@ -4,8 +4,8 @@
 \alias{GetPopulationPyramidKSH}
 \title{Scrape the population pyramid of Hungary.}
 \usage{
-GetPopulationPyramidKSH(Type = "Jan1", Years = 2013:2016, Gender = "Both",
-  AgeGroup = "Main", GeographicArea = "NUTS2")
+GetPopulationPyramidKSH(Type = "Jan1", Years = 2013:2016,
+  Gender = "Both", AgeGroup = "Main", GeographicArea = "NUTS2")
 }
 \arguments{
 \item{Type}{Type of population (possible values are "Jan1" and "MidYear").}
@@ -17,8 +17,8 @@ GetPopulationPyramidKSH(Type = "Jan1", Years = 2013:2016, Gender = "Both",
 \item{AgeGroup}{Stratification according to age (possible values are "Total", "Main" and
 "FiveYear").}
 
-\item{GeographicArea}{Stratification according to geographic area (possible values are "NUTS2",
-"NUTS3" and "LAU1").}
+\item{GeographicArea}{Stratification according to geographic area (possible values are "Total",
+"NUTS2", "NUTS3" and "LAU1").}
 }
 \value{
 Neatly formatted population pyramid.
