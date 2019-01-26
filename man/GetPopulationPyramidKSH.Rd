@@ -5,7 +5,8 @@
 \title{Scrape the population pyramid of Hungary.}
 \usage{
 GetPopulationPyramidKSH(Type = "Jan1", Years = 2013:2016,
-  Gender = "Both", AgeGroup = "Main", GeographicArea = "NUTS2")
+  Gender = "Both", AgeGroup = "Main", GeographicArea = "NUTS2",
+  na.rm = TRUE)
 }
 \arguments{
 \item{Type}{Type of population (possible values are "Jan1" and "MidYear").}
@@ -19,6 +20,8 @@ GetPopulationPyramidKSH(Type = "Jan1", Years = 2013:2016,
 
 \item{GeographicArea}{Stratification according to geographic area (possible values are "Total",
 "NUTS2", "NUTS3" and "LAU1").}
+
+\item{na.rm}{Remove rows with missing population counts? (logical)}
 }
 \value{
 Neatly formatted population pyramid.

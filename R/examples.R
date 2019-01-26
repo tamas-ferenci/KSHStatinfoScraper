@@ -13,6 +13,7 @@
 #' "FiveYear").
 #' @param GeographicArea Stratification according to geographic area (possible values are "Total",
 #' "NUTS2", "NUTS3" and "LAU1").
+#' @param na.rm Remove rows with missing population counts? (logical)
 #'
 #' @return Neatly formatted population pyramid.
 #' @export

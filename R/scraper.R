@@ -60,7 +60,9 @@ KSHStatinfoScrape <- function( code, column, row ) {
     stop( paste0( "Error: '", trimws( rvest::html_text( rvest::html_nodes( res, "td[class='errorMessage nowrap']" ) ) ),
                   "' (perhaps some strata are not meaningful here or a code is mistyped?)." ) )
   }
-  if( trimws( strsplit( rvest::html_text( rvest::html_nodes( res, "td[id='renderedCells']" ) ),
+  if( length(rvest::html_nodes(res,
+                               "td[id='renderedCells']"))>0 &&
+      trimws( strsplit( rvest::html_text( rvest::html_nodes( res, "td[id='renderedCells']" ) ),
                         stringi::stri_unescape_unicode( "sz\\u00e1ma" ) )[[1]][2] )=="" ) {
     stop( "Error: no data returned (perhaps maximum limit of 15000 cells was exceeded?)." )
   }
