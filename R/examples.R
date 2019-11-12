@@ -54,7 +54,7 @@ GetPopulationPyramidKSH <- function( Type = "Jan1", Years = 2013:2016, Gender = 
   names( PopPyramid )[ names( PopPyramid )=="Nem" ] <- "SEX"
   names( PopPyramid )[ names( PopPyramid )%in%c( stringi::stri_unescape_unicode( "Kor\\u00e9v" ), "Korcsoport" ) ] <- "AGE"
   names( PopPyramid )[ names( PopPyramid )==stringi::stri_unescape_unicode( "Ter\\u00fclet" ) ] <- "GEO"
-  names( PopPyramid )[ names( PopPyramid )==stringi::stri_unescape_unicode( "Id\\u0151szak" ) ] <- "YEAR"
+  names( PopPyramid )[ names( PopPyramid )%in%stringi::stri_unescape_unicode( c( "Idoszak", "Id\\u0151szak" ) ) ] <- "YEAR"
   names( PopPyramid )[ ncol( PopPyramid ) ] <- "POPULATION"
   if( Gender=="Total" ) PopPyramid$SEX <- "Total"
   if( AgeGroup=="Total" ) PopPyramid$AGE <- "Total"
