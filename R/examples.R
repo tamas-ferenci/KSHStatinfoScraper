@@ -31,8 +31,8 @@ GetPopulationPyramidKSH <- function( Type = "Jan1", Years = 2013:2016, Gender = 
     stop( "GeographicArea must be 'Total', 'NUTS2', 'NUTS3' or 'LAU1'" )
   if( !is.numeric( Years ) )
     stop( "Years must be a numeric vector!")
-  if( ( max( Years )>2018 )|( min( Years )<1990 ) )
-    stop( "No data is available after 2018 or before 1990!" )
+  if( ( max( Years )>2019 )|( min( Years )<1990 ) )
+    stop( "No data is available after 2019 or before 1990!" )
   if( ( min( Years )<2015 )&( GeographicArea=="LAU1" ) )
     stop( "LAU1 level data only available after 2014!" )
   if( ( AgeGroup=="OneYear" )&( GeographicArea=="LAU1" ) )
@@ -40,9 +40,9 @@ GetPopulationPyramidKSH <- function( Type = "Jan1", Years = 2013:2016, Gender = 
 
   PopPyramid <- do.call( rbind, lapply( Years, function( year )
     KSHStatinfoScrape( if( GeographicArea=="LAU1" ) {
-      if( year==2018 ) "NT6C01" else "NT5C01"
+      if( year>=2018 ) "NT6C01" else "NT5C01"
     } else {
-      if( year==2018 ) "NT2C02" else "NT1C02"
+      if( year>=2018 ) "NT2C02" else "NT1C02"
     },
     list( if( Type=="Jan1" ) "[NTAC001]" else "[NTAC003]" ),
     list( paste0( "[", year, "]" ),
